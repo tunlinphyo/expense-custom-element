@@ -6,6 +6,23 @@
     &::part(modal) {
         height: calc(100% - var(--save-top) - 1.5rem);
         padding-block-end: calc(var(--save-bottom) + var(--size-5));
+
+        --s: 41px; /* control the size*/
+        --c1: light-dark(rgb(239,239,244), rgb(38,38,40));
+        --c2: var(--bg-modal);
+
+        --_l: #0000 46%,var(--c1) 47% 53%,#0000 54%;
+        background:
+            radial-gradient(100% 100% at 100% 100%,var(--_l)) var(--s) var(--s),
+            radial-gradient(100% 100% at 0    0   ,var(--_l)) var(--s) var(--s),
+            radial-gradient(100% 100%,#0000 22%,var(--c1) 23% 29%, #0000 30% 34%,var(--c1) 35% 41%,#0000 42%),
+            var(--c2);
+        background-size: calc(var(--s)*2) calc(var(--s)*2);
+    }
+
+    & header {
+        background-color: transparent;
+        backdrop-filter: none;
     }
 
     .modal-body {
@@ -52,7 +69,7 @@
 
     .keyboard-container {
         width: 100%;
-        background-color: var(--bg-card);
+        background-color: var(--solid);
         border-radius: 3rem;
         margin-block-start: -6rem;
 

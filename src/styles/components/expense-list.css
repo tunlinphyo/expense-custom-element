@@ -60,7 +60,7 @@ expense-list {
 
             .amount {
                 display: block;
-                font-size: var(--text-lg);
+                font-size: var(--text-md);
                 color: var(--gray);
                 padding-block-start: var(--size-2);
             }

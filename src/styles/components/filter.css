@@ -5,10 +5,24 @@
     &::part(modal) {
         background-color: var(--bg-card);
         /* padding-block-end: va; */
+
+        --s: 41px; /* control the size*/
+        --c1: light-dark(rgb(239,239,244), rgb(38,38,40));
+        --c2: var(--bg-modal);
+
+        --_l: #0000 46%,var(--c1) 47% 53%,#0000 54%;
+        background:
+            radial-gradient(100% 100% at 100% 100%,var(--_l)) var(--s) var(--s),
+            radial-gradient(100% 100% at 0    0   ,var(--_l)) var(--s) var(--s),
+            radial-gradient(100% 100%,#0000 22%,var(--c1) 23% 29%, #0000 30% 34%,var(--c1) 35% 41%,#0000 42%),
+            var(--c2);
+        background-size: calc(var(--s)*2) calc(var(--s)*2);
     }
 
     & header {
-        background-color: var(--card-glass);
+        /* background-color: var(--card-glass); */
+        background-color: transparent;
+        backdrop-filter: none;
     }
 
     category-list {
@@ -23,7 +37,7 @@
             width: 100%;
             display: grid;
             gap: var(--size-1);
-            border-radius: 1.8rem;
+            border-radius: 1.5rem;
             padding: var(--size-1);
             position: relative;
 
@@ -104,7 +118,7 @@
             min-width: 10rem;
             height: 4rem;
             border-radius: 4rem;
-            background-color: light-dark(color-mix(in srgb, var(--primary) 12%, transparent), var(--black));
+            background-color: light-dark(color-mix(in srgb, var(--primary) 12%, var(--base)), var(--black));
         }
     }
 }
