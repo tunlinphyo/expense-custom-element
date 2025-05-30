@@ -1,0 +1,27 @@
+selected-filters {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .emptyData {
+        display: none;
+    }
+
+    .filter-icon {
+        position: relative;
+        width: 4rem;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-right: -2.5rem;
+    }
+    [data-icon-only] {
+        width: 4rem;
+        color: var(--primary);
+        position: relative;
+    }
+}

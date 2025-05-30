@@ -1,0 +1,21 @@
+@layer reset, utils, main, element, component, pages, overrite;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://unpkg.com/open-props') layer(utils);
+
+@import url('./styles/utils/reset.css') layer(reset);
+@import url('./styles/utils/utils.css') layer(utils);
+
+@import url('./styles/elements/index.css') layer(element);
+@import url('./styles/components/index.css') layer(component);
+@import url('./styles/utils/colors.css') layer(overrite);
+
+@view-transition {
+    navigation: auto;
+}
+
+/* ::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+} */

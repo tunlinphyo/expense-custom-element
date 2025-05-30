@@ -1,0 +1,141 @@
+#settingsPage {
+    .user-card {
+        width: 100%;
+        margin-block: var(--size-4);
+        background-color: var(--card-glass);
+        /* background-color: color-mix(in srgb, var(--primary) 12%, transparent); */
+        backdrop-filter: var(--bg-filter);
+        border-radius: var(--radius-4);
+        border: 1px solid var(--card-border);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--size-1);
+        padding: var(--size-6) var(--size-3);
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+        }
+
+        h4 {
+            font-size: var(--text-lg);
+        }
+
+        [data-button="logout"] {
+            background-color: light-dark(color-mix(in srgb, var(--primary) 12%, transparent), var(--black));
+            margin-block-start: var(--size-2);
+        }
+    }
+
+    .settings {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-block: var(--size-4);
+
+        & li {
+            & [data-button] {
+                width: 100%;
+                background-color: var(--card-glass);
+                backdrop-filter: var(--bg-filter);
+                border-radius: var(--radius-2);
+                border: 1px solid var(--card-border);
+
+                display: grid;
+                grid-template-columns: 3.5rem 1fr auto auto;
+                /* grid-template-rows: 3rem; */
+                justify-content: flex-start;
+                align-items: center;
+                gap: var(--size-3);
+                padding: var(--size-2);
+                padding-inline-end: var(--size-4);
+                text-align: left;
+
+                .icon {
+                    width: 3.5rem;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    color: var(--fg-color);
+                }
+                .name {
+                    font-size: var(--text-base);
+                    padding-inline-start: var(--size-2);
+                }
+                .value {
+                    color: var(--gray);
+                }
+                .arrow {
+                    color: var(--gray);
+                }
+            }
+
+            &:first-child {
+                & [data-button] {
+                    padding-block-start: var(--size-3);
+                    border-top-left-radius: var(--radius-4);
+                    border-top-right-radius: var(--radius-4);
+                }
+            }
+
+            &:last-child {
+                & [data-button] {
+                    padding-block-end: var(--size-3);
+                    border-bottom-left-radius: var(--radius-4);
+                    border-bottom-right-radius: var(--radius-4);
+                }
+            }
+        }
+
+        .theme-select {
+            & custom-option {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: var(--size-5);
+                border-radius: var(--radius-4);
+
+                height: 4.5rem;
+                font-size: var(--text-base);
+
+                .theme-icon {
+                    width: 3.5rem;
+                    aspect-ratio: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: color-mix(in srgb, var(--gray) 30%, transparent);
+                    border-radius: 50%;
+                }
+
+                &[selected] {
+                    background-color: transparent;
+
+                    .theme-icon {
+                        background-color: var(--primary);
+                        color: var(--bg-color);
+                    }
+                }
+            }
+
+            & custom-selected {
+                .theme-icon,
+                span:last-child {
+                    display: none;
+                }
+            }
+        }
+    }
+}

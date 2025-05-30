@@ -1,0 +1,49 @@
+app-toast {
+    .toast {
+        --default: light-dark(var(--fg-primary), var(--primary));
+        --icon-color: var(--primary);
+        color: var(--color, var(--default));
+        padding: var(--size-1);
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: var(--size-3);
+
+        .icon {
+            width: 3rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: light-dark(var(--gray-6), var(--gray-5));
+            background-color: color-mix(in srgb, var(--icon-color) 10%, transparent);
+
+            display: grid;
+            place-content: center;
+
+            & svg-icon {
+                color: var(--icon-color);
+                /* filter: drop-shadow(0 0 4px var(--primary)); */
+            }
+        }
+
+        & span {
+            display: block;
+            padding-inline-end: var(--size-3);
+            font-size: var(--text-base);
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        &.check-circle {
+            --icon-color: var(--color-green);
+            --color: var(--fg-primary);
+        }
+
+        &.toast--error {
+            --icon-color: var(--color-red);
+            --color: var(--color-red);
+        }
+
+    }
+}

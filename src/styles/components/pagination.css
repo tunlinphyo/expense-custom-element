@@ -1,0 +1,36 @@
+[pagination] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block: var(--size-4);
+
+    &::part(container) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+        padding: var(--size-1);
+        border-radius: 3rem;
+        background-color: var(--gray-5);
+    }
+
+    [data-button] {
+        width: 4rem;
+        border: 2px solid var(--solid);
+
+        &:disabled {
+            /* color: var(--gray-3); */
+            background-color: transparent;
+            color: transparent;
+        }
+    }
+
+    .page {
+        min-width: var(--size-9);
+        font-size: var(--text-xl);
+        font-weight: 500;
+        color: var(--gray);
+        text-align: center;
+    }
+}

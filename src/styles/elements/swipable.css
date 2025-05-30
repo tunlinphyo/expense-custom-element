@@ -1,0 +1,43 @@
+swipable-item {
+    --scale: 0;
+
+    display: block;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius-2);
+
+    &::part(swipable) {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+    }
+
+    &::part(action) {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--radius-4);
+        overflow: hidden;
+    }
+    &::part(left) {
+        left: 0;
+        background-color: color-mix(in srgb, var(--color-red) 20%, var(--base));
+        color: var(--color-red);
+    }
+    &::part(right) {
+        right: 0;
+        background-color: color-mix(in srgb, var(--color-green) 20%, var(--base));
+        color: var(--color-green);
+    }
+    & svg-icon[slot] {
+        transition: scale .6s var(--ease-spring-3);
+        scale: var(--scale);
+    }
+
+
+}

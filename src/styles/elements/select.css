@@ -1,0 +1,41 @@
+[data-select] {
+    --bottom: var(--size-3);
+    /* --backdrop-bg: color-mix(in srgb, var(--solid) 50%, transparent);
+    --backdrop-filter: brightness(.8); */
+    --backdrop-bg: transparent;
+    --backdrop-filter: brightness(1);
+
+    &::part(selectpopup) {
+        box-sizing: border-box;
+        width: calc(100% - var(--size-2));
+        max-width: 35rem;
+        height: auto;
+        max-height: calc(100% - var(--save-top) - 1.5rem);
+        margin: auto auto var(--bottom);
+        inset-block: auto var(--bottom);
+        border: none;
+        outline: none;
+        contain: content;
+
+        /* background-color: var(--card-glass);
+        backdrop-filter: var(--bg-filter); */
+        background-color: var(--bg-color);
+        backdrop-filter: var(--bg-filter);
+        border-radius: 2.25rem;
+
+        padding: var(--size-5) var(--size-3);
+
+        color-scheme: dark;
+        @media (prefers-color-scheme: dark) {
+            color-scheme: light;
+        }
+    }
+
+    &::part(button) {
+        position: absolute;
+        bottom: var(--size-2);
+        right: var(--size-2);
+
+        color-scheme: light dark;
+    }
+}

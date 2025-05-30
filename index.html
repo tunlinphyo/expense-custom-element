@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>Element</title>
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Expense" />
+
+</head>
+
+<body>
+    <app-main data-no-scrollbar>
+        <div class="nav-container" slot="nav">
+            <ul class="actions">
+                <li>
+                    <button data-button="open-page" data-icon-only data-target="overviewPage">
+                        <svg-icon name="graph" size="18"></svg-icon>
+                    </button>
+                </li>
+                <li>
+                    <button data-button="open-page" data-icon-only data-target="settingsPage">
+                        <svg-icon name="settings" size="17"></svg-icon>
+                    </button>
+                </li>
+            </ul>
+            <button data-fab-learge data-button="open-modal" data-target="expenseModal">
+                <svg-icon name="plus" size="20"></svg-icon>
+                Expense
+            </button>
+        </div>
+
+        <div class="page-container">
+            <header>
+                <h1>Expenses</h1>
+            </header>
+            <div class="main-card">
+                <div class="message">
+                    Total expense of
+                    <strong>May 2025</strong>
+                </div>
+                <div class="price">65,720</div>
+                <div class="currency-symbol" data-toast>¥</div>
+            </div>
+            <div class="navbar">
+                <h2>
+                    <button data-button data-icon-only>
+                        <svg-icon name="calendar" size="18"></svg-icon>
+                    </button>
+                    May 2025
+                </h2>
+                <selected-filters id="selectedFilters">
+                    <template>
+                        <div class="filter-icon" data-bind-attr="data-color:color">
+                            <svg-icon data-bind-attr="name:icon"></svg-icon>
+                        </div>
+                    </template>
+                    <button data-icon-only data-button="open-modal" data-target="filterModal">
+                        <svg-icon name="plus" size="18"></svg-icon>
+                    </button>
+                </selected-filters>
+            </div>
+            <expense-list>
+                <template>
+                    <swipable-item data-left="delete" data-right="open">
+                        <svg-icon slot="left" name="trash" size="20"></svg-icon>
+                        <svg-icon slot="right" name="checked" size="20"></svg-icon>
+
+                        <button data-button="open-modal" data-target="expenseModal" class="item-card" data-bind-attr="data-id:id">
+                            <div class="icon" data-bind-attr="data-color:color">
+                                <svg-icon name="bio-lock" size="24"></svg-icon>
+                            </div>
+                            <div class="item">
+                                <h5 data-bind-text="name"></h5>
+                                <date-display class="date" format="MMMM D" data-bind-attr="value:date"></date-display>
+                                <currency-display class="amount" data-bind-attr="value:amount"></currency-display>
+                            </div>
+                        </button>
+                    </swipable-item>
+                </template>
+            </expense-list>
+            <expense-pagination>
+                <button data-icon-only data-button="prev" disabled>
+                    <svg-icon name="prev" size="16"></svg-icon>
+                </button>
+                <div class="page">01</div>
+                <button data-icon-only data-button="next">
+                    <svg-icon name="next" size="16"></svg-icon>
+                </button>
+            </expense-pagination>
+        </div>
+
+        <custom-modal id="filterModal">
+            <header>
+                <div data-icon-only></div>
+                <h2>Categories</h2>
+                <div data-icon-only></div>
+            </header>
+            <section class="modal-body">
+                <custom-form>
+                    <category-list>
+                        <template>
+                            <label data-bind-attr="data-color:color">
+                                <input type="checkbox" name="category" data-aria-only data-bind-attr="value:id">
+                                <div class="icon">
+                                    <svg-icon  data-bind-attr="name:icon" size="24"></svg-icon>
+                                </div>
+                                <svg-icon class="add" name="add-circle" size="24"></svg-icon>
+                                <svg-icon class="remove" name="minus-circle" size="24"></svg-icon>
+                                <div class="label" data-bind-text="name"></div>
+                            </label>
+                        </template>
+                    </category-list>
+                    <footer>
+                        <button type="submit" data-button-primary data-button="close-modal" data-target="filterModal" data-toast>
+                            <svg-icon name="done" size="20"></svg-icon>
+                            Done
+                        </button>
+                    </footer>
+                </custom-form>
+            </section>
+        </custom-modal>
+
+        <custom-modal id="expenseModal">
+            <header>
+                <button data-icon-only data-button="close-modal" data-target="expenseModal">
+                    <svg-icon name="close" size="16"></svg-icon>
+                </button>
+                <h2>Expense</h2>
+                <button data-icon-only data-button="close-modal" data-target="expenseModal" disabled>
+                    <svg-icon name="trash" size="20"></svg-icon>
+                </button>
+            </header>
+            <section class="modal-body">
+                <custom-form>
+                    <div class="selected-category">
+                        <h3 data-color="green">Food & Drink</h3>
+                        <!-- <date-display class="date" format="MMM D, YYYY" value="2025-12-05"></date-display> -->
+                    </div>
+                    <div class="expense-card">
+                        <div class="amount">
+                            <div class="currency-symbol">¥</div>
+                            <div class="amount-input">250.00</div>
+                        </div>
+                        <div class="options">
+                            <div class="date-select">
+                                <date-display class="date" format="MMM D, YYYY" value="2025-05-30"></date-display>
+                                <div class="icon">
+                                    <svg-icon name="calendar" size="18"></svg-icon>
+                                </div>
+                            </div>
+                            <custom-select class="category-select">
+                                <button slot="button" type="button" data-icon-only data-button="select">
+                                    <custom-selected class="value"></custom-selected>
+                                    <svg-icon class="icon-select" name="categories" size="24"></svg-icon>
+                                </button>
+
+                                <category-list>
+                                    <template>
+                                        <custom-option data-bind-attr="value:id;data-color:color">
+                                            <div class="icon" data-bind-attr="value:id;data-color:color">
+                                                <svg-icon data-bind-attr="name:icon" size="24"></svg-icon>
+                                            </div>
+                                            <div class="label" data-bind-text="name"></div>
+                                            <svg-icon class="checked" name="checked" size="24"></svg-icon>
+                                        </custom-option>
+                                    </template>
+                                </category-list>
+                            </custom-select>
+                        </div>
+                        <div class="numberpad">
+                            <button class="numberkey" data-key="1">1</button>
+                            <button class="numberkey" data-key="2">2</button>
+                            <button class="numberkey" data-key="3">3</button>
+                            <button class="numberkey" data-key="4">4</button>
+                            <button class="numberkey" data-key="5">5</button>
+                            <button class="numberkey" data-key="6">6</button>
+                            <button class="numberkey" data-key="7">7</button>
+                            <button class="numberkey" data-key="8">8</button>
+                            <button class="numberkey" data-key="9">9</button>
+                            <button class="numberkey" data-key=".">.</button>
+                            <button class="numberkey" data-key="0">0</button>
+                            <button class="numberkey" data-key="DELETE">
+                                <svg-icon name="delete-key" size="24"></svg-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <footer>
+                        <button data-button="done">
+                            <svg-icon name="done" size="20"></svg-icon>
+                            Done
+                        </button>
+                    </footer>
+                </custom-form>
+            </section>
+        </custom-modal>
+
+        <custom-modal id="categoryModal">
+            <header>
+                <button data-icon-only data-button="close-modal" data-target="categoryModal">
+                    <svg-icon name="close" size="16"></svg-icon>
+                </button>
+                <h2>Category</h2>
+                <button data-icon-only data-button="close-modal" data-target="categoryModal">
+                    <svg-icon name="trash" size="20"></svg-icon>
+                </button>
+            </header>
+            <section class="modal-body">
+                <custom-form>
+                    <div class="category-name" data-theme="green">
+                        <h3>Food & Drink</h3>
+                        <!-- <date-display class="date" format="MMM D, YYYY" value="2025-12-05"></date-display> -->
+                    </div>
+                    <div class="category-card">
+                        <!-- <div class="category-icon">
+                            <svg-icon name="home" size="24"></svg-icon>
+                        </div> -->
+                        <p>
+                            Organize your expenses by category to see how you spend.
+                        </p>
+                    </div>
+                    <div class="keyboard-container" data-theme="green">
+                        <div class="selection">
+                            <button type="button" data-button data-icon-only>
+                                <svg-icon name="github" size="32"></svg-icon>
+                            </button>
+                            <button class="btn-color" type="button" data-button data-icon-only></button>
+                            <button data-button="done">
+                                <svg-icon name="done" size="20"></svg-icon>
+                                Done
+                            </button>
+                        </div>
+
+                        <div class="keyboard">
+                            <div class="row row--first">
+                                <button type="button" class="key" data-key="q">q</button>
+                                <button type="button" class="key" data-key="w">w</button>
+                                <button type="button" class="key" data-key="e">e</button>
+                                <button type="button" class="key" data-key="r">r</button>
+                                <button type="button" class="key" data-key="t">t</button>
+                                <button type="button" class="key" data-key="y">y</button>
+                                <button type="button" class="key" data-key="u">u</button>
+                                <button type="button" class="key" data-key="i">i</button>
+                                <button type="button" class="key" data-key="o">o</button>
+                                <button type="button" class="key" data-key="p">p</button>
+                            </div>
+                            <div class="row row--second">
+                                <button type="button" class="key" data-key="a">a</button>
+                                <button type="button" class="key" data-key="s">s</button>
+                                <button type="button" class="key" data-key="d">d</button>
+                                <button type="button" class="key" data-key="f">f</button>
+                                <button type="button" class="key" data-key="g">g</button>
+                                <button type="button" class="key" data-key="h">h</button>
+                                <button type="button" class="key" data-key="j">j</button>
+                                <button type="button" class="key" data-key="k">k</button>
+                                <button type="button" class="key" data-key="l">l</button>
+                            </div>
+                            <div class="row row--third">
+                                <button type="button" class="key" data-key="SHIFT">
+                                    <svg-icon name="up" size="20"></svg-icon>
+                                </button>
+                                <button type="button" class="key" data-key="z">z</button>
+                                <button type="button" class="key" data-key="x">x</button>
+                                <button type="button" class="key" data-key="c">c</button>
+                                <button type="button" class="key" data-key="v">v</button>
+                                <button type="button" class="key" data-key="b">b</button>
+                                <button type="button" class="key" data-key="n">n</button>
+                                <button type="button" type="button" class="key" data-key="m">m</button>
+                                <button type="button" class="key" data-key="DELETE">
+                                    <svg-icon name="delete-key" size="24"></svg-icon>
+                                </button>
+                            </div>
+                            <div class="row row--fourth">
+                                <button type="button" class="key" data-key="#">#</button>
+                                <button type="button" class="key" data-key="SPACE"></button>
+                                <button type="button" class="key" data-key="&">&</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="catgory-card" data-bind-attr="data-color:color" data-color="blue">
+                        <div class="category-icon" data-bind-attr="data-color:color">
+                            <svg-icon name="home" size="32"></svg-icon>
+                        </div>
+                        <div class="input-container">
+                            <input data-bind-attr="data-color:color" data-form-input type="text"
+                                name="formname" placeholder="Category Name" />
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <color-list>
+                            <template>
+                                <label data-bind-attr="data-color:id">
+                                    <input type="radio" name="color" data-aria-only data-bind-attr="value:id">
+                                    <svg-icon class="checked" name="checked" size="24"></svg-icon>
+                                </label>
+                            </template>
+                        </color-list>
+                    </div>
+
+
+                    <div class="form-card">
+                        <color-list>
+                            <template>
+                                <label data-bind-attr="data-color:id">
+                                    <input type="radio" name="icon" data-aria-only data-bind-attr="value:id">
+                                    <svg-icon class="checked" name="checked" size="24"></svg-icon>
+                                </label>
+                            </template>
+                        </color-list>
+                    </div> -->
+                </custom-form>
+            </section>
+        </custom-modal>
+
+        <custom-page id="settingsPage">
+            <header>
+                <button data-icon-only data-button="close-page" data-target="settingsPage">
+                    <svg-icon name="back" size="16"></svg-icon>
+                </button>
+                <h2>Settings</h2>
+                <div data-icon-only></div>
+            </header>
+            <section class="page-body">
+                <div class="user-card">
+                    <img class="avatar" src="/avatar.png" alt="Avatar">
+                    <h4>User Name</h4>
+                    <div class="email">user@gmail.com</div>
+                    <button data-button-primary data-button="logout" data-toast>
+                        <svg-icon name="logout" size="24"></svg-icon>
+                        Logout
+                    </button>
+                </div>
+
+                <ul class="settings">
+                    <li>
+                        <button data-button="open-page" data-target="categoriesPage">
+                            <div class="icon" data-color="blue">
+                                <svg-icon name="categories" size="20"></svg-icon>
+                            </div>
+                            <div class="name">Categories</div>
+                            <div class="value"></div>
+                            <svg-icon class="arrow" name="next" size="14"></svg-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button data-button="open-page" data-target="colorsPage">
+                            <div class="icon" data-color="blue">
+                                <svg-icon name="color" size="20"></svg-icon>
+                            </div>
+                            <div class="name">Colors</div>
+                            <div class="value"></div>
+                            <svg-icon class="arrow" name="next" size="14"></svg-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button data-button="open-page" data-target="iconsPage">
+                            <div class="icon" data-color="blue">
+                                <svg-icon name="layers" size="20"></svg-icon>
+                            </div>
+                            <div class="name">Icons</div>
+                            <div class="value"></div>
+                            <svg-icon class="arrow" name="next" size="14"></svg-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <custom-select class="theme-select">
+                            <button type="button" data-button="select" slot="button">
+                                <div class="icon" data-color="blue">
+                                    <svg-icon name="theme" size="20"></svg-icon>
+                                </div>
+                                <div class="name">Theme</div>
+                                <custom-selected class="value"></custom-selected>
+                                <svg-icon class="arrow" name="next" size="14"></svg-icon>
+                            </button>
+
+                            <custom-option value="light">
+                                <div class="theme-icon">
+                                    <svg-icon name="sun" size="20"></svg-icon>
+                                </div>
+                                <div>
+                                    <span>Light</span> <span>Theme</span>
+                                </div>
+                            </custom-option>
+                            <custom-option value="dark">
+                                <div class="theme-icon">
+                                    <svg-icon name="moon" size="20"></svg-icon>
+                                </div>
+                                <div>
+                                    <span>Dark</span> <span>Theme</span>
+                                </div>
+                            </custom-option>
+                            <custom-option value="auto">
+                                <div class="theme-icon">
+                                    <svg-icon name="night-day" size="20"></svg-icon>
+                                </div>
+                                <div>
+                                    <span>Device</span> <span>Setting</span>
+                                </div>
+                            </custom-option>
+                        </custom-select>
+                    </li>
+                </ul>
+            </section>
+        </custom-page>
+
+        <custom-page id="overviewPage">
+            <header>
+                <button data-icon-only data-button="close-page" data-target="overviewPage">
+                    <svg-icon name="back" size="16"></svg-icon>
+                </button>
+                <h2>Overview</h2>
+                <div data-icon-only></div>
+            </header>
+            <section class="page-body">
+            </section>
+        </custom-page>
+
+        <custom-page id="categoriesPage">
+            <header>
+                <button data-icon-only data-button="close-page" data-target="categoriesPage">
+                    <svg-icon name="back" size="16"></svg-icon>
+                </button>
+                <h2>Categories</h2>
+                <button data-icon-only data-button="action">
+                    <svg-icon name="sort" size="16"></svg-icon>
+                </button>
+            </header>
+            <section class="page-body">
+                <category-list>
+                    <template>
+                        <swipable-item data-left="delete" data-right="open">
+                            <svg-icon slot="left" name="trash" size="20"></svg-icon>
+                            <svg-icon slot="right" name="checked" size="20"></svg-icon>
+
+                            <button data-button="open-modal" data-target="categoryModal" data-bind-attr="data-id:id">
+                                <div class="icon" data-bind-attr="data-color:color">
+                                    <svg-icon data-bind-attr="name:icon" size="24"></svg-icon>
+                                </div>
+                                <div class="label" data-bind-text="name"></div>
+                                <svg-icon class="arrow" name="next" size="14"></svg-icon>
+                            </button>
+                        </swipable-item>
+                    </template>
+                </category-list>
+            </section>
+            <footer class="page-floating">
+                <button data-fab-learge data-button="open-modal" data-target="categoryModal">
+                    <svg-icon name="plus" size="20"></svg-icon>
+                    Category
+                </button>
+            </footer>
+        </custom-page>
+
+        <custom-page id="colorsPage">
+            <header>
+                <button data-icon-only data-button="close-page" data-target="colorsPage">
+                    <svg-icon name="back" size="16"></svg-icon>
+                </button>
+                <h2>Colors</h2>
+                <div data-icon-only></div>
+            </header>
+            <section class="page-body">
+            </section>
+        </custom-page>
+
+        <custom-page id="iconsPage">
+            <header>
+                <button data-icon-only data-button="close-page" data-target="iconsPage">
+                    <svg-icon name="back" size="16"></svg-icon>
+                </button>
+                <h2>Icons</h2>
+                <div data-icon-only></div>
+            </header>
+            <section class="page-body">
+            </section>
+        </custom-page>
+    </app-main>
+
+    <app-toast id="appToast"></app-toast>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+:root {
+    color-scheme: light dark;
+    accent-color: var(--secondary);
+
+    --font-family: 'Poppins', sans-serif;
+
+    --primary: var(--color-blue);
+    --secondary: var(--color-pink);
+
+    --white: rgb(255,255,255);
+    --black: rgb(0,0,0);
+
+    --solid: light-dark(var(--white), var(--black));
+    --solid-reverse: light-dark(var(--black), var(--white));
+
+    --bg-color: light-dark(var(--gray-6), var(--black));
+    --bg-modal: var(--gray-6);
+    --bg-glass: color-mix(in srgb, var(--bg-color) 70%, transparent);
+    --bg-filter: blur(20px) brightness(1);
+    --bg-card: light-dark(var(--white), var(--gray-5));
+
+    --card-glass: color-mix(in srgb, var(--bg-card) 70%, transparent);
+    --card-border: light-dark(var(--white), var(--gray-5));
+
+    --glass: color-mix(in srgb, var(--solid) 50%, transparent);
+    --glass-reverse: color-mix(in srgb, var(--solid-reverse) 8%, transparent);
+
+    --fg-color: light-dark(#333, #eee);
+    --fg-accent: light-dark(#666, #ccc);
+}
